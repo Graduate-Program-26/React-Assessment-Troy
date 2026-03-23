@@ -12,10 +12,6 @@ import {
 import { FaGithub } from "react-icons/fa";
 
 export default async function LoginPage() {
-    const session = await auth();
-
-    if (session?.user) redirect("/");
-
     return (
         <div className="flex items-center justify-center min-h-screen w-full">
             <Card className="w-full max-w-sm">
