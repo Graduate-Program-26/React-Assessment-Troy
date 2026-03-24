@@ -10,19 +10,22 @@ import {
 
 export default function SideDrawer({
     children,
+    drawerUser,
 }: {
     children: React.ReactNode;
+    drawerUser: React.ReactNode;
 }) {
     const [open, setOpen] = useState(false);
 
     return (
         <Drawer direction="left" open={open} onOpenChange={setOpen}>
             {children}
-            <DrawerContent>
+            <DrawerContent className="flex flex-col h-full ">
                 <DrawerHeader>
                     <DrawerTitle>Navigation</DrawerTitle>
                 </DrawerHeader>
-                <div className="p-4"></div>
+                <div className="flex-1 p-4"></div>
+                {drawerUser}
             </DrawerContent>
         </Drawer>
     );
