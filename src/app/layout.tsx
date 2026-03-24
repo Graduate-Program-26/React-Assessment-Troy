@@ -3,8 +3,6 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Providers from "./providers";
-import SideDrawer from "./dashboard/(components)/drawer";
-import AppHeader from "./dashboard/(components)/header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
