@@ -7,11 +7,7 @@ import { Card, CardContent } from "@/components/shadcn/card";
 import { getProfile } from "../../lib/github/get-profile";
 import { Badge } from "@/components/shadcn/badge";
 
-interface ProfileCardProps {
-    username: string;
-}
-
-export default async function ProfileCard({ username }: ProfileCardProps) {
+export default async function ProfileCard({ username }: { username: string }) {
     const profile = await getProfile(username);
 
     return (
