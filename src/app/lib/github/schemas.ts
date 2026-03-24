@@ -35,14 +35,19 @@ export const GitHubEventPayloadSchema = z
     })
     .passthrough();
 
+export const GitHubEventActorSchema = z.object({
+    login: z.string(),
+    avatar_url: z.string().url(),
+});
+
 export const GitHubEventSchema = z.object({
     id: z.string(),
     type: z.string().nullable(),
+    actor: GitHubEventActorSchema,
     repo: z.object({ name: z.string() }),
     created_at: z.string().nullable(),
     payload: GitHubEventPayloadSchema,
 });
-
 export const GitHubEventsSchema = z.array(GitHubEventSchema);
 
 export type GitHubRepository = z.infer<typeof GitHubRepositorySchema>;

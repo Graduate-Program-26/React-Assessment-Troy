@@ -9,14 +9,28 @@ import { Star } from "lucide-react";
 import { getRepositories } from "../../lib/github/get-repositories";
 import { Badge } from "@/components/shadcn/badge";
 
-interface RepositoriesGridProps {
-    username: string;
-}
-
 export default async function RepositoriesGrid({
     username,
-}: RepositoriesGridProps) {
+}: {
+    username: string;
+}) {
     const repositories = await getRepositories(username);
+
+    if (!repositories || repositories.length === 0) {
+        return (
+            <section aria-labelledby="repositories-heading">
+                <h2
+                    id="repositories-heading"
+                    className="mb-4 text-lg font-semibold"
+                >
+                    Repositories
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                    No repositories found.
+                </p>
+            </section>
+        );
+    }
 
     return (
         <section aria-labelledby="repositories-heading">
@@ -24,9 +38,9 @@ export default async function RepositoriesGrid({
                 id="repositories-heading"
                 className="mb-4 text-lg font-semibold"
             >
-                Top Repositories
+                Repositories
             </h2>
-            <div className="grid grid-cols-3 items-stretch gap-4">
+            <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {repositories.map((repo) => (
                     <a key={repo.id} href={repo.html_url}>
                         <Card className="flex h-full w-full flex-col transition-shadow group-hover:shadow-md">
@@ -38,7 +52,7 @@ export default async function RepositoriesGrid({
                             <CardContent className="flex flex-1 flex-col gap-3">
                                 <div className="min-h-[calc(2*1.25rem*1.25)] text-sm leading-tight text-muted-foreground">
                                     <p className="line-clamp-2">
-                                        {repo.description}
+                                        {repo.description ?? "No description."}
                                     </p>
                                 </div>
                                 <div className="mt-auto flex items-center gap-3 text-sm text-muted-foreground">

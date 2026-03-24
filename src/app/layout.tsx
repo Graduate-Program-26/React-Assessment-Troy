@@ -3,8 +3,8 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Providers from "./providers";
-import SideDrawer from "../app/components/drawer";
-import AppHeader from "../app/components/header";
+import SideDrawer from "./dashboard/(components)/drawer";
+import AppHeader from "./dashboard/(components)/header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -42,12 +42,9 @@ export default function RootLayout({
         >
             <body className="min-h-full flex flex-col">
                 <Providers>
-                    <SideDrawer>
-                        <div className="flex flex-col flex-1">
-                            <AppHeader />
-                            <main className="flex-1">{children}</main>
-                        </div>
-                    </SideDrawer>
+                    <div className="flex flex-col flex-1">
+                        <main className="flex-1">{children}</main>
+                    </div>
                 </Providers>
             </body>
         </html>
