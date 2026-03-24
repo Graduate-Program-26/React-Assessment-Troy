@@ -1,7 +1,8 @@
 import { Suspense } from "react";
-import ProfileCard from "../profile-card";
+import ProfileCard from "../(components)/profile-card";
 import { Skeleton } from "@/components/shadcn/skeleton";
-import RepositoriesGrid from "../repositories-grid";
+import RepositoriesGrid from "../(components)/repositories-grid";
+import GithubHeatmap from "../(components)/github-heatmap";
 
 export default async function DashboardPage({
     params,
@@ -17,6 +18,12 @@ export default async function DashboardPage({
             >
                 <ProfileCard username={username} />
             </Suspense>
+            <Suspense
+                fallback={<Skeleton className="h-32 w-full rounded-xl" />}
+            >
+                <GithubHeatmap username={username} />
+            </Suspense>
+
             <Suspense
                 fallback={<Skeleton className="h-64 w-full rounded-xl" />}
             >

@@ -6,7 +6,7 @@ import {
 } from "@/components/shadcn/card";
 
 import { Star } from "lucide-react";
-import { getRepositories } from "../lib/github/get-repositories";
+import { getRepositories } from "../../lib/github/get-repositories";
 import { Badge } from "@/components/shadcn/badge";
 
 interface RepositoriesGridProps {

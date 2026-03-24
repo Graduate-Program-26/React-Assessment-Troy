@@ -14,6 +14,11 @@ import {
     CommandItem,
     CommandList,
 } from "@/components/shadcn/command";
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/shadcn/avatar";
 import { GitHubUserArray } from "../lib/github/schemas";
 import { getUsers } from "../lib/github/get-users";
 import { useSession } from "next-auth/react";
@@ -63,7 +68,7 @@ export default function SideDrawer({
                             value={search}
                             onValueChange={handleSearch}
                         />
-                        <CommandList>
+                        <CommandList className="mt-2">
                             <CommandEmpty>No users found.</CommandEmpty>
                             {results.map((user) => (
                                 <CommandItem
@@ -73,13 +78,22 @@ export default function SideDrawer({
                                         router.push(`/dashboard/${value}`);
                                         setOpen(false);
                                     }}
+                                    className="flex items-center gap-3 cursor-pointer py-2"
                                 >
-                                    <img
-                                        src={user.avatar_url}
-                                        alt={user.login}
-                                        className="w-6 h-6 rounded-full"
-                                    />
-                                    <span>{user.login}</span>
+                                    <Avatar className="w-8 h-8">
+                                        <AvatarImage
+                                            src={user.avatar_url}
+                                            alt={user.login}
+                                        />
+                                        <AvatarFallback>
+                                            {user.login
+                                                .slice(0, 2)
+                                                .toUpperCase()}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <span className="text-sm">
+                                        {user.login}
+                                    </span>
                                 </CommandItem>
                             ))}
                         </CommandList>
