@@ -4,7 +4,7 @@ import {
     AvatarFallback,
 } from "@/components/shadcn/avatar";
 import { Card, CardContent } from "@/components/shadcn/card";
-import { getProfile } from "../lib/github/get-profile";
+import { getProfile } from "../../lib/github/get-profile";
 import { Badge } from "@/components/shadcn/badge";
 
 interface ProfileCardProps {
@@ -17,7 +17,7 @@ export default async function ProfileCard({ username }: ProfileCardProps) {
     return (
         <Card>
             <CardContent className="flex flex-col items-center gap-4 p-6 sm:flex-row sm:items-start">
-                <Avatar size="lg">
+                <Avatar className="h-48 w-48">
                     <AvatarImage
                         src={profile.avatar_url}
                         alt={`${profile.login} avatar`}
@@ -30,11 +30,6 @@ export default async function ProfileCard({ username }: ProfileCardProps) {
                     <h1 className="text-2xl font-semibold">
                         {profile.name ?? profile.login}
                     </h1>
-                    {profile.bio && (
-                        <p className="text-sm text-muted-foreground">
-                            {profile.bio}
-                        </p>
-                    )}
                     <div className="flex flex-wrap justify-center gap-2 sm:justify-start">
                         <Badge variant="secondary">
                             {profile.followers} followers
@@ -46,6 +41,11 @@ export default async function ProfileCard({ username }: ProfileCardProps) {
                             {profile.public_repos} repos
                         </Badge>
                     </div>
+                    {profile.bio && (
+                        <p className="text-sm text-muted-foreground">
+                            {profile.bio}
+                        </p>
+                    )}
                 </div>
             </CardContent>
         </Card>
