@@ -44,3 +44,6 @@ export const GitHubEventsSchema = z.array(GitHubEventSchema);
 export type GitHubRepository = z.infer<typeof GitHubRepositorySchema>;
 export type GitHubEvent = z.infer<typeof GitHubEventSchema>;
 export type GitHubUser = z.infer<typeof GitHubUserSchema>;
+
+export const GitHubUserArraySchema = z.array(GitHubUserSchema);
+export type GitHubUserArray = z.infer<typeof GitHubUserArraySchema>;

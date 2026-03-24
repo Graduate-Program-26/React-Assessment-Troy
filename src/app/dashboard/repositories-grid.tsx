@@ -30,7 +30,7 @@ export default async function RepositoriesGrid() {
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="flex flex-1 flex-col gap-3">
-                                <div className="min-h-[calc(2*1.25rem*1.25)] text-sm leading-[1.25] text-muted-foreground">
+                                <div className="min-h-[calc(2*1.25rem*1.25)] text-sm leading-tight text-muted-foreground">
                                     <p className="line-clamp-2">
                                         {repo.description}
                                     </p>
