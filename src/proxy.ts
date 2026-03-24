@@ -5,10 +5,12 @@ export const proxy = auth((req) => {
     const isLoggedIn = !!req.auth;
     const isLoginPage = req.nextUrl.pathname === "/login";
     const isRoot = req.nextUrl.pathname === "/";
+    const user = req.auth?.user;
+    const login = user?.login;
 
     if (isRoot) {
         return NextResponse.redirect(
-            new URL(isLoggedIn ? "/dashboard" : "/login", req.url),
+            new URL(isLoggedIn ? `/dashboard/${login}` : "/login", req.url),
         );
     }
 
@@ -17,7 +19,7 @@ export const proxy = auth((req) => {
     }
 
     if (isLoggedIn && isLoginPage) {
-        return NextResponse.redirect(new URL("/dashboard", req.url));
+        return NextResponse.redirect(new URL(` /dashboard/${login}`, req.url));
     }
 });
 
