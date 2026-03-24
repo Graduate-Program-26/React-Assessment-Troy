@@ -2,16 +2,24 @@ import { auth } from "@/src/auth";
 import { NextResponse } from "next/server";
 
 export const proxy = auth((req) => {
-    console.log("proxy hit:", req.nextUrl.pathname, "authed:", !!req.auth);
     const isLoggedIn = !!req.auth;
     const isLoginPage = req.nextUrl.pathname === "/login";
+    const isRoot = req.nextUrl.pathname === "/";
+    const user = req.auth?.user;
+    const login = user?.login;
+
+    if (isRoot) {
+        return NextResponse.redirect(
+            new URL(isLoggedIn ? `/dashboard/${login}` : "/login", req.url),
+        );
+    }
 
     if (!isLoggedIn && !isLoginPage) {
         return NextResponse.redirect(new URL("/login", req.url));
     }
 
     if (isLoggedIn && isLoginPage) {
-        return NextResponse.redirect(new URL("/", req.url));
+        return NextResponse.redirect(new URL(` /dashboard/${login}`, req.url));
     }
 });
 

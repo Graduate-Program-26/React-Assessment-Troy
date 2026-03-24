@@ -1,7 +1,4 @@
-import { auth } from "@/src/auth";
-import { redirect } from "next/navigation";
 import { githubSignIn } from "../actions/auth.actions";
-import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -10,12 +7,9 @@ import {
     CardTitle,
 } from "@/components/shadcn/card";
 import { FaGithub } from "react-icons/fa";
+import { Button } from "@/components/shadcn/button";
 
 export default async function LoginPage() {
-    const session = await auth();
-
-    if (session?.user) redirect("/");
-
     return (
         <div className="flex items-center justify-center min-h-screen w-full">
             <Card className="w-full max-w-sm">
