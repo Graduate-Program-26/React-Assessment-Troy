@@ -7,6 +7,7 @@ import {
     DrawerHeader,
     DrawerTitle,
 } from "@/components/shadcn/drawer";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function SideDrawer({
     children,
@@ -20,9 +21,10 @@ export default function SideDrawer({
     return (
         <Drawer direction="left" open={open} onOpenChange={setOpen}>
             {children}
-            <DrawerContent className="flex flex-col h-full ">
-                <DrawerHeader>
+            <DrawerContent className="flex flex-col h-full">
+                <DrawerHeader className="flex items-center justify-between">
                     <DrawerTitle>Navigation</DrawerTitle>
+                    <ThemeToggle />
                 </DrawerHeader>
                 <div className="flex-1 p-4"></div>
                 {drawerUser}
