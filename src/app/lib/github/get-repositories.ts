@@ -1,11 +1,13 @@
 import { auth } from "@/src/auth";
 import { GitHubRepositoriesSchema, type GitHubRepository } from "./schemas";
 
-export async function getRepositories(): Promise<GitHubRepository[]> {
+export async function getRepositories(
+    username: string,
+): Promise<GitHubRepository[]> {
     const session = await auth();
 
     const response = await fetch(
-        "https://api.github.com/user/repos?sort=stars&per_page=6",
+        `https://api.github.com/users/${username}/repos?sort=stars&per_page=6`,
         {
             headers: {
                 Authorization: `Bearer ${session?.accessToken}`,

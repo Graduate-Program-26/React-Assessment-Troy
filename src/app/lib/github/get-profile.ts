@@ -1,10 +1,14 @@
 import { auth } from "@/src/auth";
-import { GitHubUserSchema, type GitHubUser } from "./schemas";
+import { GitHubUserDetail, GitHubUserDetailSchema } from "./schemas";
 
-export async function getProfile(): Promise<GitHubUser> {
+export async function getProfile(username?: string): Promise<GitHubUserDetail> {
     const session = await auth();
 
-    const response = await fetch("https://api.github.com/user", {
+    const url = username
+        ? `https://api.github.com/users/${username}`
+        : "https://api.github.com/user";
+
+    const response = await fetch(url, {
         headers: {
             Authorization: `Bearer ${session?.accessToken}`,
             Accept: "application/vnd.github+json",
@@ -17,5 +21,5 @@ export async function getProfile(): Promise<GitHubUser> {
     }
 
     const data: unknown = await response.json();
-    return GitHubUserSchema.parse(data);
+    return GitHubUserDetailSchema.parse(data);
 }

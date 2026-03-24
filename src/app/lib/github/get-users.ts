@@ -1,14 +1,15 @@
-import { auth } from "@/src/auth";
 import { GitHubUser, GitHubUserArraySchema } from "./schemas";
 
-export async function getUsers(username: string): Promise<GitHubUser[]> {
-    const session = await auth();
-
+export async function getUsers(
+    username: string,
+    accessToken: string,
+    page: number = 1,
+): Promise<GitHubUser[]> {
     const response = await fetch(
-        `https://api.github.com/search/users?q=${encodeURIComponent(username)}`,
+        `https://api.github.com/search/users?q=${encodeURIComponent(username)}&per_page=10&page=${page}`,
         {
             headers: {
-                Authorization: `Bearer ${session?.accessToken}`,
+                Authorization: `Bearer ${accessToken}`,
                 Accept: "application/vnd.github+json",
             },
             next: { revalidate: 60 },
@@ -19,6 +20,6 @@ export async function getUsers(username: string): Promise<GitHubUser[]> {
         throw new Error(`Failed to fetch users: ${response.status}`);
     }
 
-    const data: unknown = await response.json();
-    return GitHubUserArraySchema.parse(data);
+    const data = (await response.json()) as { items: unknown };
+    return GitHubUserArraySchema.parse(data.items);
 }

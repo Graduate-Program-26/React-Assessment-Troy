@@ -9,8 +9,14 @@ import { Star } from "lucide-react";
 import { getRepositories } from "../lib/github/get-repositories";
 import { Badge } from "@/components/shadcn/badge";
 
-export default async function RepositoriesGrid() {
-    const repositories = await getRepositories();
+interface RepositoriesGridProps {
+    username: string;
+}
+
+export default async function RepositoriesGrid({
+    username,
+}: RepositoriesGridProps) {
+    const repositories = await getRepositories(username);
 
     return (
         <section aria-labelledby="repositories-heading">

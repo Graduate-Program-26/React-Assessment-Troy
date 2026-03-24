@@ -3,6 +3,10 @@ import { z } from "zod";
 export const GitHubUserSchema = z.object({
     login: z.string(),
     avatar_url: z.string().url(),
+    html_url: z.string().url(),
+});
+
+export const GitHubUserDetailSchema = GitHubUserSchema.extend({
     name: z.string().nullable(),
     bio: z.string().nullable(),
     followers: z.number(),
@@ -43,7 +47,9 @@ export const GitHubEventsSchema = z.array(GitHubEventSchema);
 
 export type GitHubRepository = z.infer<typeof GitHubRepositorySchema>;
 export type GitHubEvent = z.infer<typeof GitHubEventSchema>;
+
 export type GitHubUser = z.infer<typeof GitHubUserSchema>;
+export type GitHubUserDetail = z.infer<typeof GitHubUserDetailSchema>;
 
 export const GitHubUserArraySchema = z.array(GitHubUserSchema);
 export type GitHubUserArray = z.infer<typeof GitHubUserArraySchema>;
