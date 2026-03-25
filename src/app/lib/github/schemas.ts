@@ -116,3 +116,9 @@ export type GitHubUserDetail = z.infer<typeof GitHubUserDetailSchema>;
 
 export const GitHubUserArraySchema = z.array(GitHubUserSchema);
 export type GitHubUserArray = z.infer<typeof GitHubUserArraySchema>;
+
+export const GitHubSearchResultSchema = z.object({
+    items: GitHubUserArraySchema,
+});
+
+export type GitHubSearchResult = z.infer<typeof GitHubSearchResultSchema>;

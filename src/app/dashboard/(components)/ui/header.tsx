@@ -85,8 +85,9 @@ export default function DashboardHeader({
                     className="hover:cursor-pointer shrink-0"
                     variant="ghost"
                     size="icon"
+                    aria-label="Open navigation menu"
                 >
-                    <Menu className="h-5 w-5" />
+                    <Menu className="h-5 w-5" aria-hidden="true" />
                 </Button>
             </DrawerTrigger>
 

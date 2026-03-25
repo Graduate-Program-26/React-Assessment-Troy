@@ -14,6 +14,19 @@ import ProfileCard from "../(components)/feeds/profile-card";
 import ActivityFeed from "../(components)/feeds/activity-feed";
 import GithubHeatmap from "../(components)/feeds/github-heatmap";
 import RepositoriesGrid from "../(components)/feeds/repositories-grid";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ username: string }>;
+}): Promise<Metadata> {
+    const { username } = await params;
+    return {
+        title: `${username} GitHub Dashboard`,
+        description: `GitHub profile and repos for ${username}`,
+    };
+}
 
 export default async function DashboardPage({
     params,
