@@ -7,14 +7,17 @@ import {
 } from "@/components/shadcn/avatar";
 import { Button } from "@/components/shadcn/button";
 import { GitHubEvent } from "@/src/app/lib/github/schemas";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 const INITIAL_COUNT = 10;
 
 const ActivityFeedClient = ({ activity }: { activity: GitHubEvent[] }) => {
     const [showAll, setShowAll] = useState(false);
 
-    const visible = showAll ? activity : activity.slice(0, INITIAL_COUNT);
+    const visible = useMemo(
+        () => (showAll ? activity : activity.slice(0, INITIAL_COUNT)),
+        [showAll, activity],
+    );
     const hasMore = activity.length > INITIAL_COUNT;
 
     return (
