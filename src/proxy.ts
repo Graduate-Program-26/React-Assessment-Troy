@@ -19,7 +19,7 @@ export const proxy = auth((req) => {
     }
 
     if (isLoggedIn && isLoginPage) {
-        return NextResponse.redirect(new URL(` /dashboard/${login}`, req.url));
+        return NextResponse.redirect(new URL(`/dashboard/${login}`, req.url));
     }
 });
 
