@@ -10,7 +10,7 @@ export const proxy = auth((req) => {
 
     if (isRoot) {
         return NextResponse.redirect(
-            new URL(isLoggedIn ? `/dashboard/${login}` : "/login", req.url),
+            new URL(isLoggedIn ? `/dashboard/` : "/login", req.url),
         );
     }
 

@@ -1,20 +1,17 @@
+import { auth } from "@/src/auth";
 import { GitHubEvent, GitHubEventsSchema } from "./schemas";
 
 export async function getUserActivity(
     username: string,
-    token?: string,
 ): Promise<GitHubEvent[]> {
-    const headers: HeadersInit = {
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2026-03-10",
-    };
-
-    if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-    }
+    const session = await auth();
 
     const res = await fetch(`https://api.github.com/users/${username}/events`, {
-        headers,
+        headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+            Accept: "application/vnd.github+json",
+        },
+        next: { revalidate: 60 },
     });
 
     if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);

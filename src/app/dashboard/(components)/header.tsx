@@ -18,8 +18,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { getUsers } from "../../lib/github/get-users";
-import { GitHubUserArray } from "../../lib/github/schemas";
 import { Menu } from "lucide-react";
+import { GitHubUserArray } from "../../lib/github/schemas";
 
 export default function DashboardHeader() {
     const router = useRouter();
@@ -84,58 +84,65 @@ export default function DashboardHeader() {
                     ref={containerRef}
                     className="relative w-full min-w-0 md:max-w-sm"
                 >
-                    <Command shouldFilter={false}>
-                        <CommandInput
-                            placeholder="Search user..."
-                            value={search}
-                            onValueChange={handleSearch}
-                            onFocus={() => setOpen(true)}
-                            className="w-full"
-                        />
-                        {open && search.trim() && (
-                            <CommandList className="absolute top-full left-0 w-full z-50 bg-popover text-popover-foreground border border-border rounded-md shadow-md mt-1 max-h-60 overflow-y-auto p-2">
-                                {loading ? (
-                                    <div className="py-6 text-center text-sm text-muted-foreground">
-                                        Searching...
-                                    </div>
-                                ) : (
-                                    <>
-                                        <CommandEmpty>
-                                            No users found.
-                                        </CommandEmpty>
-                                        {results.map((user) => (
-                                            <CommandItem
-                                                key={user.login}
-                                                value={user.login}
-                                                onSelect={(value) => {
-                                                    router.push(
-                                                        `/dashboard/${value}`,
-                                                    );
-                                                    setOpen(false);
-                                                }}
-                                                className="flex items-center gap-3 cursor-pointer py-2 px-3"
-                                            >
-                                                <Avatar className="w-8 h-8 shrink-0">
-                                                    <AvatarImage
-                                                        src={user.avatar_url}
-                                                        alt={user.login}
-                                                    />
-                                                    <AvatarFallback>
-                                                        {user.login
-                                                            .slice(0, 2)
-                                                            .toUpperCase()}
-                                                    </AvatarFallback>
-                                                </Avatar>
-                                                <span className="text-sm">
-                                                    {user.login}
-                                                </span>
-                                            </CommandItem>
-                                        ))}
-                                    </>
-                                )}
-                            </CommandList>
-                        )}
-                    </Command>
+                    <div className="overflow-hidden">
+                        <Command
+                            shouldFilter={false}
+                            className="bg-transparent"
+                        >
+                            <CommandInput
+                                placeholder="Search user..."
+                                value={search}
+                                onValueChange={handleSearch}
+                                onFocus={() => setOpen(true)}
+                                className="w-full"
+                            />
+                            {open && search.trim() && (
+                                <CommandList className="absolute top-full left-0 w-full z-50 bg-popover text-popover-foreground border border-border rounded-md shadow-md mt-1 max-h-60 overflow-y-auto p-2">
+                                    {loading ? (
+                                        <div className="py-6 text-center text-sm text-muted-foreground">
+                                            Searching...
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <CommandEmpty>
+                                                No users found.
+                                            </CommandEmpty>
+                                            {results.map((user) => (
+                                                <CommandItem
+                                                    key={user.login}
+                                                    value={user.login}
+                                                    onSelect={(value) => {
+                                                        router.push(
+                                                            `/dashboard/${value}`,
+                                                        );
+                                                        setOpen(false);
+                                                    }}
+                                                    className="flex items-center gap-3 cursor-pointer py-2 px-3"
+                                                >
+                                                    <Avatar className="w-8 h-8 shrink-0">
+                                                        <AvatarImage
+                                                            src={
+                                                                user.avatar_url
+                                                            }
+                                                            alt={user.login}
+                                                        />
+                                                        <AvatarFallback>
+                                                            {user.login
+                                                                .slice(0, 2)
+                                                                .toUpperCase()}
+                                                        </AvatarFallback>
+                                                    </Avatar>
+                                                    <span className="text-sm">
+                                                        {user.login}
+                                                    </span>
+                                                </CommandItem>
+                                            ))}
+                                        </>
+                                    )}
+                                </CommandList>
+                            )}
+                        </Command>
+                    </div>
                 </div>
             </div>
         </header>
