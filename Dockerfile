@@ -1,10 +1,10 @@
 FROM node:24-alpine AS base
 
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat && npm install -g bun
 WORKDIR /app
-COPY package.json bun.lockb* ./
-RUN npm install -g bun && bun install --frozen-lockfile --timeout 600000
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
 FROM base AS builder
 WORKDIR /app
