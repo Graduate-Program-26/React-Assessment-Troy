@@ -6,7 +6,6 @@ import {
     AvatarImage,
 } from "@/components/shadcn/avatar";
 import { Button } from "@/components/shadcn/button";
-import { Separator } from "@/components/shadcn/separator";
 import type { GitHubUser } from "../../lib/github/schemas";
 import { handleSignOut } from "../../actions/auth.actions";
 import { ThemeToggle } from "@/components/theme-toggle";

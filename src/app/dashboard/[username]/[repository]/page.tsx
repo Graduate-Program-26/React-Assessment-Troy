@@ -15,7 +15,7 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "@/components/shadcn/avatar";
-import { Star, GitFork, Eye, CircleDot, ArrowLeft } from "lucide-react";
+import { Star, GitFork, Eye, CircleDot } from "lucide-react";
 import { getCommits } from "@/src/app/lib/github/get-commits";
 import { getContributors } from "@/src/app/lib/github/get-contributors";
 import { getReadme } from "@/src/app/lib/github/get-readme";

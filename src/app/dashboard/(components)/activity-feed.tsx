@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react";
 import { getUserActivity } from "../../lib/github/get-user-activity";
 
 const ActivityFeed = async ({ username }: { username: string }) => {
