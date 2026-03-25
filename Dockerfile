@@ -4,7 +4,7 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json bun.lockb* ./
-RUN npm install -g bun && bun install --frozen-lockfile --network-timeout 600000
+RUN npm install -g bun && bun install --frozen-lockfile --timeout 600000
 
 FROM base AS builder
 WORKDIR /app
