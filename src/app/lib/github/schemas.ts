@@ -48,6 +48,64 @@ export const GitHubEventSchema = z.object({
     created_at: z.string().nullable(),
     payload: GitHubEventPayloadSchema,
 });
+
+export const GitHubRepositoryDetailSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+    full_name: z.string(),
+    description: z.string().nullable(),
+    html_url: z.string(),
+    language: z.string().nullable(),
+    stargazers_count: z.number(),
+    forks_count: z.number(),
+    open_issues_count: z.number(),
+    watchers_count: z.number(),
+    default_branch: z.string(),
+    updated_at: z.string(),
+    created_at: z.string(),
+    topics: z.array(z.string()),
+    visibility: z.string(),
+    fork: z.boolean(),
+    homepage: z.string().nullable(),
+});
+
+export type GitHubRepositoryDetail = z.infer<
+    typeof GitHubRepositoryDetailSchema
+>;
+
+export const GitHubCommitSchema = z.object({
+    sha: z.string(),
+    commit: z.object({
+        message: z.string(),
+        author: z.object({
+            name: z.string(),
+            date: z.string(),
+        }),
+    }),
+    html_url: z.string(),
+    author: z
+        .object({
+            login: z.string(),
+            avatar_url: z.string(),
+        })
+        .nullable(),
+});
+
+export const GitHubCommitsSchema = z.array(GitHubCommitSchema);
+
+export type GitHubCommit = z.infer<typeof GitHubCommitSchema>;
+
+export const GitHubContributorSchema = z.object({
+    login: z.string(),
+    avatar_url: z.string(),
+    html_url: z.string(),
+    contributions: z.number(),
+});
+
+export const GitHubContributorsSchema = z.array(GitHubContributorSchema);
+
+export type GitHubContributor = z.infer<typeof GitHubContributorSchema>;
+
 export const GitHubEventsSchema = z.array(GitHubEventSchema);
 
 export type GitHubRepository = z.infer<typeof GitHubRepositorySchema>;

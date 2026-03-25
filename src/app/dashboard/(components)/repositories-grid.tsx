@@ -42,7 +42,10 @@ export default async function RepositoriesGrid({
             </h2>
             <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {repositories.map((repo) => (
-                    <a key={repo.id} href={repo.html_url}>
+                    <a
+                        key={repo.id}
+                        href={`/dashboard/${username}/${repo.name}`}
+                    >
                         <Card className="flex h-full w-full flex-col transition-shadow group-hover:shadow-md">
                             <CardHeader className="pb-2">
                                 <CardTitle className="text-base">
