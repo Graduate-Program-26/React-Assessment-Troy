@@ -9,13 +9,13 @@ import { Button } from "@/components/shadcn/button";
 import { Separator } from "@/components/shadcn/separator";
 import type { GitHubUser } from "../../lib/github/schemas";
 import { handleSignOut } from "../../actions/auth.actions";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function DrawerUser({ user }: { user: GitHubUser }) {
     const { login, avatar_url, html_url } = user;
 
     return (
         <>
-            <Separator />
             <div className="flex items-center gap-3 px-3 py-3">
                 <a
                     href={html_url}
@@ -43,12 +43,13 @@ export default function DrawerUser({ user }: { user: GitHubUser }) {
                         github.com/{login}
                     </a>
                 </div>
+                <ThemeToggle />
                 <form action={handleSignOut}>
                     <Button
                         type="submit"
                         variant="ghost"
                         size="sm"
-                        className="shrink-0 text-muted-foreground"
+                        className="shrink-0 text-muted-foreground hover:cursor-pointer"
                     >
                         Sign out
                     </Button>

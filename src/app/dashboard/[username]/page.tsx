@@ -11,7 +11,6 @@ export default async function DashboardPage({
     params: Promise<{ username: string }>;
 }) {
     const { username } = await params;
-
     return (
         <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8">
             <Suspense fallback={<DashboardSkeleton />}>
