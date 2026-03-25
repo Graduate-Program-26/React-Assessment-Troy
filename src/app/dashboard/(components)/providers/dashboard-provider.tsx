@@ -4,16 +4,7 @@ import { useState } from "react";
 import SideDrawer from "../ui/drawer";
 import DashboardHeader from "../ui/header";
 import { GitHubUserArray } from "../../../lib/github/schemas";
-
-const STORAGE_KEY = "recent_searches";
-
-function loadRecentSearches(): GitHubUserArray {
-    try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-    } catch {
-        return [];
-    }
-}
+import { loadRecentSearches } from "../../../lib/storage/recent-searches";
 
 export default function DashboardProvider({
     children,

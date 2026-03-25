@@ -20,20 +20,7 @@ import { useState, useRef, useEffect } from "react";
 import { getUsers } from "../../../lib/github/get-users";
 import { Menu } from "lucide-react";
 import { GitHubUserArray } from "../../../lib/github/schemas";
-
-const STORAGE_KEY = "recent_searches";
-
-function saveSearch(
-    user: GitHubUserArray[number],
-    current: GitHubUserArray,
-): GitHubUserArray {
-    const updated = [
-        user,
-        ...current.filter((u) => u.login !== user.login),
-    ].slice(0, 5);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    return updated;
-}
+import { saveSearch } from "../../../lib/storage/recent-searches";
 
 export default function DashboardHeader({
     recentSearches,

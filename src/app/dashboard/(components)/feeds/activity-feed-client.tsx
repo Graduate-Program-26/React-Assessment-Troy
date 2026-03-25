@@ -9,7 +9,7 @@ import { Button } from "@/components/shadcn/button";
 import { GitHubEvent } from "@/src/app/lib/github/schemas";
 import { useState } from "react";
 
-const INITIAL_COUNT = 6;
+const INITIAL_COUNT = 10;
 
 const ActivityFeedClient = ({ activity }: { activity: GitHubEvent[] }) => {
     const [showAll, setShowAll] = useState(false);
