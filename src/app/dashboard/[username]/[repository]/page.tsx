@@ -60,6 +60,12 @@ export default async function RepositoryPage({
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
+                            <Link href={`/dashboard/`}>Dashboard</Link>
+                        </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink asChild>
                             <Link href={`/dashboard/${username}`}>
                                 {username}
                             </Link>
