@@ -1,4 +1,4 @@
-import { getUserActivity } from "../../lib/github/get-user-activity";
+import { getUserActivity } from "../../../lib/github/get-user-activity";
 
 const ActivityFeed = async ({ username }: { username: string }) => {
     const activity = await getUserActivity(username);

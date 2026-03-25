@@ -4,8 +4,9 @@ import {
     AvatarFallback,
 } from "@/components/shadcn/avatar";
 import { Card, CardContent } from "@/components/shadcn/card";
-import { getProfile } from "../../lib/github/get-profile";
+
 import { Badge } from "@/components/shadcn/badge";
+import { getProfile } from "@/src/app/lib/github/get-profile";
 
 export default async function ProfileCard({ username }: { username: string }) {
     const profile = await getProfile(username);

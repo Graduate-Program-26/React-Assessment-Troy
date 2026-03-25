@@ -6,8 +6,8 @@ import {
 } from "@/components/shadcn/card";
 
 import { Star } from "lucide-react";
-import { getRepositories } from "../../lib/github/get-repositories";
 import { Badge } from "@/components/shadcn/badge";
+import { getRepositories } from "@/src/app/lib/github/get-repositories";
 
 export default async function RepositoriesGrid({
     username,

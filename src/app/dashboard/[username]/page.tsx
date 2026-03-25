@@ -1,10 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import ProfileCard from "../(components)/profile-card";
 import { Skeleton } from "@/components/shadcn/skeleton";
-import RepositoriesGrid from "../(components)/repositories-grid";
-import GithubHeatmap from "../(components)/github-heatmap";
-import ActivityFeed from "../(components)/activity-feed";
+
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -13,6 +10,10 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/shadcn/breadcrumb";
+import ProfileCard from "../(components)/feeds/profile-card";
+import ActivityFeed from "../(components)/feeds/activity-feed";
+import GithubHeatmap from "../(components)/feeds/github-heatmap";
+import RepositoriesGrid from "../(components)/feeds/repositories-grid";
 
 export default async function DashboardPage({
     params,

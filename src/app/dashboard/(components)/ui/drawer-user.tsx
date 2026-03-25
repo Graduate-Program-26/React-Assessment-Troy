@@ -6,8 +6,8 @@ import {
     AvatarImage,
 } from "@/components/shadcn/avatar";
 import { Button } from "@/components/shadcn/button";
-import type { GitHubUser } from "../../lib/github/schemas";
-import { handleSignOut } from "../../actions/auth.actions";
+import type { GitHubUser } from "../../../lib/github/schemas";
+import { handleSignOut } from "../../../actions/auth.actions";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function DrawerUser({ user }: { user: GitHubUser }) {
