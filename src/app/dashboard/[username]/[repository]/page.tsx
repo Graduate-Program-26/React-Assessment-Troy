@@ -72,6 +72,7 @@ export default async function RepositoryPage({
         <div className="mx-auto max-w-5xl space-y-8 p-6">
             <Breadcrumb>
                 <BreadcrumbList>
+                    <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
                             <Link href={`/dashboard/`}>Dashboard</Link>
