@@ -147,3 +147,37 @@ bun start
 bun lint
 bun typecheck
 ```
+
+## Images
+
+### Landing Page
+
+## ![Landing Page](./public/landing.png)
+
+### Login Page
+
+## ![Login Page](./public/login.png)
+
+### Dashboard
+
+## ![Dashboard](./public/dashboard.png)
+
+### Repositories
+
+## ![Repositories](./public/repos.png)
+
+### Activity
+
+## ![Activity](./public/activity.png)
+
+### Searchpage
+
+## ![Search Page](./public/searchpage.png)
+
+### Search
+
+## ![Search](./public/search.png)
+
+### Sidebar
+
+## ![Sidebar](./public/sidebar.png)
