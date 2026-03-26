@@ -12,7 +12,7 @@ export default function Page() {
                         strokeWidth={1.5}
                     />
                     <span className="text-sm text-zinc-500 uppercase">
-                        Troy's Github Dash Viewer
+                        Troy&apos;s Github Dash Viewer
                     </span>
                 </div>
 
