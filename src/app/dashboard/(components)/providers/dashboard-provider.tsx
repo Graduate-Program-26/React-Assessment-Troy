@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SideDrawer from "../ui/drawer";
 import DashboardHeader from "../ui/header";
 import { GitHubUserArray } from "../../../lib/github/schemas";
@@ -13,8 +13,11 @@ export default function DashboardProvider({
     children: React.ReactNode;
     drawerUser: React.ReactNode;
 }) {
-    const [recentSearches, setRecentSearches] =
-        useState<GitHubUserArray>(loadRecentSearches);
+    const [recentSearches, setRecentSearches] = useState<GitHubUserArray>([]);
+
+    useEffect(() => {
+        setRecentSearches(loadRecentSearches());
+    }, []);
 
     return (
         <SideDrawer drawerUser={drawerUser} recentSearches={recentSearches}>
