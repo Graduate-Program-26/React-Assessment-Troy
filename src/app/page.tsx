@@ -29,11 +29,6 @@ export default function Page() {
                 >
                     <Link href="/login">Proceed</Link>
                 </Button>
-
-                <p className="text-xs text-zinc-600">
-                    You can login securely with Github oAuth, I see none of your
-                    private details :)
-                </p>
             </div>
         </main>
     );
