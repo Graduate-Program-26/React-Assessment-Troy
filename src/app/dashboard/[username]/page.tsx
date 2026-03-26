@@ -1,7 +1,4 @@
-import { Suspense } from "react";
 import Link from "next/link";
-import { Skeleton } from "@/components/shadcn/skeleton";
-
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -50,23 +47,10 @@ export default async function DashboardPage({
                     </BreadcrumbItem>
                 </BreadcrumbList>
             </Breadcrumb>
-            <Suspense fallback={<DashboardSkeleton />}>
-                <ProfileCard username={username} />
-                <GithubHeatmap username={username} />
-                <RepositoriesGrid username={username} />
-                <ActivityFeed username={username} />
-            </Suspense>
+            <ProfileCard username={username} />
+            <GithubHeatmap username={username} />
+            <RepositoriesGrid username={username} />
+            <ActivityFeed username={username} />
         </main>
-    );
-}
-
-function DashboardSkeleton() {
-    return (
-        <>
-            <Skeleton className="h-32 w-full rounded-xl" />
-            <Skeleton className="h-32 w-full rounded-xl" />
-            <Skeleton className="h-64 w-full rounded-xl" />
-            <Skeleton className="h-64 w-full rounded-xl" />
-        </>
     );
 }

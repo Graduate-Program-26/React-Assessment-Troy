@@ -11,7 +11,7 @@ export async function getUserActivity(
             Authorization: `Bearer ${session?.accessToken}`,
             Accept: "application/vnd.github+json",
         },
-        next: { revalidate: 60 },
+        next: { revalidate: 60, tags: [`activity-${username}`] },
     });
 
     if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
