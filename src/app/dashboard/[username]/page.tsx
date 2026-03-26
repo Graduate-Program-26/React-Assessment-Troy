@@ -32,7 +32,7 @@ export default async function DashboardPage({
 }) {
     const { username } = await params;
     return (
-        <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8">
+        <main className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbSeparator />
