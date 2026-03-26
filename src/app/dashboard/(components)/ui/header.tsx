@@ -16,64 +16,30 @@ import {
 } from "@/components/shadcn/command";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
-import { getUsers } from "../../../lib/github/get-users";
+import { useRef } from "react";
 import { Menu } from "lucide-react";
 import { GitHubUserArray } from "../../../lib/github/schemas";
-import { saveSearch } from "../../../lib/storage/recent-searches";
-import { useDebounce } from "@/hooks/use-debounce";
+import { useGitHubSearch } from "@/hooks/use-github-search";
+import { useClickOutside } from "@/hooks/use-click-outside";
 
 export default function DashboardHeader({
     recentSearches,
-    setRecentSearches,
+    onSelect,
 }: {
     recentSearches: GitHubUserArray;
-    setRecentSearches: React.Dispatch<React.SetStateAction<GitHubUserArray>>;
+    onSelect: (user: GitHubUserArray[number]) => void;
 }) {
     const router = useRouter();
-    const [search, setSearch] = useState("");
-    const [results, setResults] = useState<GitHubUserArray>([]);
-    const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const containerRef = useRef<HTMLDivElement>(null);
-
+    const containerRef = useRef<HTMLDivElement | null>(null);
     const { data: session } = useSession();
 
-    const debouncedGetUsers = useDebounce(async (value: string) => {
-        const response = await getUsers(value, session!.accessToken);
-        setResults(response);
-        setLoading(false);
-    }, 300);
+    const { search, results, loading, open, setOpen, handleSearch } =
+        useGitHubSearch(session?.accessToken ?? "");
 
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (
-                containerRef.current &&
-                !containerRef.current.contains(event.target as Node)
-            ) {
-                setOpen(false);
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () =>
-            document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
-    function handleSearch(value: string) {
-        setSearch(value);
-        setOpen(true);
-
-        if (value.trim()) {
-            setLoading(true);
-            debouncedGetUsers(value);
-        } else {
-            setResults([]);
-            setLoading(false);
-        }
-    }
+    useClickOutside(containerRef, () => setOpen(false));
 
     function handleSelect(user: GitHubUserArray[number]) {
-        setRecentSearches((prev) => saveSearch(user, prev));
+        onSelect(user);
         router.push(`/dashboard/${user.login}`);
         setOpen(false);
     }
