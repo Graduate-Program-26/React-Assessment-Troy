@@ -148,6 +148,30 @@ bun lint
 bun typecheck
 ```
 
+## Resources used
+
+https://nextjs.org/docs/pages/api-reference/functions/use-router
+https://nextjs.org/learn/dashboard-app/adding-authentication
+https://www.youtube.com/watch?v=npZsJxWntJM
+https://nextjs.org/docs/pages/guides/authentication
+https://www.youtube.com/watch?v=zNgCFXZLoRk
+https://nextjs.org/docs/app/getting-started/deploying
+https://github.com/vercel/next.js/tree/canary/examples/with-docker
+https://render.com/docs/deploys
+https://react.dev/learn/reusing-logic-with-custom-hooks
+https://support.google.com/chrome/answer/99020?visit_id=639101129552605628-3726941318&p=cpn_safe_browsing&hl=en&rd=1
+https://tailwindcss.com/docs/installation/using-vite
+https://docs.github.com/en/rest/activity/events?apiVersion=2026-03-10#list-public-events
+https://docs.github.com/en/rest/activity?apiVersion=2026-03-10
+https://nextjs.org/docs/app/api-reference/components/image
+https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes
+https://docs.github.com/en/rest/users/users?apiVersion=2026-03-10
+https://docs.github.com/en/rest/repos?apiVersion=2026-03-10
+https://nextjs.org/docs/app/api-reference/functions/use-params
+https://ui.shadcn.com/docs/components
+https://zod.dev/basics
+https://zod.dev/api
+
 ## Images
 
 ### Landing Page
