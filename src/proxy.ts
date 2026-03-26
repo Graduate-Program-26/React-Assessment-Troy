@@ -9,9 +9,12 @@ export const proxy = auth((req) => {
     const login = user?.login;
 
     if (isRoot) {
-        return NextResponse.redirect(
-            new URL(isLoggedIn ? `/dashboard/` : "/login", req.url),
-        );
+        if (isLoggedIn) {
+            return NextResponse.redirect(
+                new URL(`/dashboard/${login}`, req.url),
+            );
+        }
+        return NextResponse.next();
     }
 
     if (!isLoggedIn && !isLoginPage) {
