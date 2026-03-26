@@ -44,7 +44,7 @@ export default function SideDrawer({
             icon: LayoutDashboard,
         },
         {
-            href: "/",
+            href: "/dashboard",
             label: "Search Users",
             icon: Search,
         },
