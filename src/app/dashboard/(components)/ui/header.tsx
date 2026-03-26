@@ -20,20 +20,8 @@ import { useState, useRef, useEffect } from "react";
 import { getUsers } from "../../../lib/github/get-users";
 import { Menu } from "lucide-react";
 import { GitHubUserArray } from "../../../lib/github/schemas";
-
-const STORAGE_KEY = "recent_searches";
-
-function saveSearch(
-    user: GitHubUserArray[number],
-    current: GitHubUserArray,
-): GitHubUserArray {
-    const updated = [
-        user,
-        ...current.filter((u) => u.login !== user.login),
-    ].slice(0, 5);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    return updated;
-}
+import { saveSearch } from "../../../lib/storage/recent-searches";
+import { useDebounce } from "@/hooks/use-debounce";
 
 export default function DashboardHeader({
     recentSearches,
@@ -47,10 +35,15 @@ export default function DashboardHeader({
     const [results, setResults] = useState<GitHubUserArray>([]);
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const { data: session } = useSession();
+
+    const debouncedGetUsers = useDebounce(async (value: string) => {
+        const response = await getUsers(value, session!.accessToken);
+        setResults(response);
+        setLoading(false);
+    }, 300);
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -70,17 +63,9 @@ export default function DashboardHeader({
         setSearch(value);
         setOpen(true);
 
-        if (debounceTimer.current) {
-            clearTimeout(debounceTimer.current);
-        }
-
         if (value.trim()) {
             setLoading(true);
-            debounceTimer.current = setTimeout(async () => {
-                const response = await getUsers(value, session!.accessToken);
-                setResults(response);
-                setLoading(false);
-            }, 300);
+            debouncedGetUsers(value);
         } else {
             setResults([]);
             setLoading(false);
@@ -100,8 +85,9 @@ export default function DashboardHeader({
                     className="hover:cursor-pointer shrink-0"
                     variant="ghost"
                     size="icon"
+                    aria-label="Open navigation menu"
                 >
-                    <Menu className="h-5 w-5" />
+                    <Menu className="h-5 w-5" aria-hidden="true" />
                 </Button>
             </DrawerTrigger>
 

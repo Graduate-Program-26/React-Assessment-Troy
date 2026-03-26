@@ -28,8 +28,22 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/shadcn/breadcrumb";
+import { Metadata } from "next";
 
 const RAW_BASE = "https://raw.githubusercontent.com";
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ username: string; repository: string }>;
+}): Promise<Metadata> {
+    const { username, repository } = await params;
+    return {
+        title: `${username}/${repository}Github`,
+        description: `Repo details, commits and contributors for ${username}/${repository}`,
+    };
+}
+
 export default async function RepositoryPage({
     params,
 }: {
@@ -55,9 +69,10 @@ export default async function RepositoryPage({
     const readmeData = readme.status === "fulfilled" ? readme.value : null;
 
     return (
-        <div className="mx-auto max-w-5xl space-y-8 p-6">
+        <div className="mx-auto max-w-5xl space-y-8 p-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <Breadcrumb>
                 <BreadcrumbList>
+                    <BreadcrumbSeparator />
                     <BreadcrumbItem>
                         <BreadcrumbLink asChild>
                             <Link href={`/dashboard/`}>Dashboard</Link>
@@ -162,7 +177,10 @@ export default async function RepositoryPage({
                                                 return (
                                                     <img
                                                         src={resolvedSrc}
-                                                        alt={alt ?? ""}
+                                                        alt={
+                                                            alt ??
+                                                            `Image from ${repository} README`
+                                                        }
                                                         {...props}
                                                     />
                                                 );

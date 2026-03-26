@@ -45,6 +45,7 @@ export default async function RepositoriesGrid({
                     <a
                         key={repo.id}
                         href={`/dashboard/${username}/${repo.name}`}
+                        aria-label={`View repository ${repo.name}`}
                     >
                         <Card className="flex h-full w-full flex-col transition-shadow group-hover:shadow-md">
                             <CardHeader className="pb-2">

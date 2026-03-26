@@ -1,4 +1,4 @@
-import { GitHubUser, GitHubUserArraySchema } from "./schemas";
+import { GitHubUser, GitHubSearchResultSchema } from "./schemas";
 
 export async function getUsers(
     username: string,
@@ -20,6 +20,6 @@ export async function getUsers(
         throw new Error(`Failed to fetch users: ${response.status}`);
     }
 
-    const data = (await response.json()) as { items: unknown };
-    return GitHubUserArraySchema.parse(data.items);
+    const data: unknown = await response.json();
+    return GitHubSearchResultSchema.parse(data).items;
 }

@@ -13,7 +13,7 @@ export async function getProfile(username?: string): Promise<GitHubUserDetail> {
             Authorization: `Bearer ${session?.accessToken}`,
             Accept: "application/vnd.github+json",
         },
-        next: { revalidate: 60 },
+        next: { revalidate: 60, tags: [`profile-${username}`] },
     });
 
     if (!response.ok) {

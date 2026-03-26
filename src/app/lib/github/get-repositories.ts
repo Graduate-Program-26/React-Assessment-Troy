@@ -13,7 +13,7 @@ export async function getRepositories(
                 Authorization: `Bearer ${session?.accessToken}`,
                 Accept: "application/vnd.github+json",
             },
-            next: { revalidate: 60 },
+            next: { revalidate: 60, tags: [`repos-${username}`] },
         },
     );
 
