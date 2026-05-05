@@ -3,11 +3,13 @@ import { GitHubRepositoriesSchema, type GitHubRepository } from "./schemas";
 
 export async function getRepositories(
     username: string,
+    page = 1,
+    perPage = 6,
 ): Promise<GitHubRepository[]> {
     const session = await auth();
 
     const response = await fetch(
-        `https://api.github.com/users/${username}/repos?sort=stars&per_page=6`,
+        `https://api.github.com/users/${username}/repos?sort=stars&per_page=${perPage}&page=${page}`,
         {
             headers: {
                 Authorization: `Bearer ${session?.accessToken}`,

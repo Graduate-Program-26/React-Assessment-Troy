@@ -63,6 +63,7 @@ export default async function RepositoryPage({
     }
 
     const repoData = repo.value;
+    console.log("repoData", repoData);
     const commitsData = commits.status === "fulfilled" ? commits.value : [];
     const contributorsData =
         contributors.status === "fulfilled" ? contributors.value : [];
@@ -95,7 +96,11 @@ export default async function RepositoryPage({
 
             <div className="space-y-2">
                 <div className="flex flex-wrap items-center gap-3">
-                    <h1 className="text-2xl font-semibold">{repoData.name}</h1>
+                    <Link href={repoData.html_url}>
+                        <h1 className="text-2xl font-semibold">
+                            {repoData.name}
+                        </h1>
+                    </Link>
                     <Badge variant="outline">{repoData.visibility}</Badge>
                     {repoData.fork && <Badge variant="secondary">Fork</Badge>}
                 </div>
@@ -240,11 +245,9 @@ export default async function RepositoryPage({
                             </CardHeader>
                             <CardContent className="space-y-3">
                                 {contributorsData.map((contributor) => (
-                                    <a
+                                    <Link
                                         key={contributor.login}
-                                        href={contributor.html_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                        href={`../${contributor.login}`}
                                         className="flex items-center gap-3 rounded-md p-2 hover:bg-muted"
                                     >
                                         <Avatar className="size-7">
@@ -264,7 +267,7 @@ export default async function RepositoryPage({
                                         <span className="text-xs text-muted-foreground">
                                             {contributor.contributions.toLocaleString()}
                                         </span>
-                                    </a>
+                                    </Link>
                                 ))}
                             </CardContent>
                         </Card>
