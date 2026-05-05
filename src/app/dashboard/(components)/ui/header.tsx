@@ -16,7 +16,7 @@ import {
 } from "@/components/shadcn/command";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import { Menu } from "lucide-react";
 import { GitHubUserArray } from "../../../lib/github/schemas";
 import { useGitHubSearch } from "@/hooks/use-github-search";
@@ -33,8 +33,17 @@ export default function DashboardHeader({
     const containerRef = useRef<HTMLDivElement | null>(null);
     const { data: session } = useSession();
 
-    const { search, results, loading, open, setOpen, handleSearch } =
-        useGitHubSearch(session?.accessToken ?? "");
+    const {
+        search,
+        results,
+        loading,
+        loadingMore,
+        hasNextPage,
+        fetchNextPage,
+        open,
+        setOpen,
+        handleSearch,
+    } = useGitHubSearch(session?.accessToken ?? "");
 
     useClickOutside(containerRef, () => setOpen(false));
 
@@ -43,6 +52,17 @@ export default function DashboardHeader({
         router.push(`/dashboard/${user.login}`);
         setOpen(false);
     }
+
+    const handleScroll = useCallback(
+        (e: React.UIEvent<HTMLDivElement>) => {
+            const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+            const nearBottom = scrollHeight - scrollTop - clientHeight < 40;
+            if (nearBottom && hasNextPage && !loadingMore) {
+                fetchNextPage();
+            }
+        },
+        [hasNextPage, loadingMore, fetchNextPage],
+    );
 
     return (
         <header className="grid grid-cols-[auto_1fr_auto] items-center gap-2 px-4 py-2 w-full border-b border-border">
@@ -77,7 +97,10 @@ export default function DashboardHeader({
                             {open &&
                                 (search.trim() ||
                                     recentSearches.length > 0) && (
-                                    <CommandList className="absolute top-full left-0 w-full z-50 bg-popover text-popover-foreground border border-border rounded-md shadow-md mt-1 max-h-60 overflow-y-auto p-2">
+                                    <CommandList
+                                        onScroll={handleScroll}
+                                        className="absolute top-full left-0 w-full z-50 bg-popover text-popover-foreground border border-border rounded-md shadow-md mt-1 max-h-60 overflow-y-auto p-2"
+                                    >
                                         {!search.trim() ? (
                                             <>
                                                 <p className="px-3 py-1.5 text-xs text-muted-foreground">
@@ -147,6 +170,11 @@ export default function DashboardHeader({
                                                         </span>
                                                     </CommandItem>
                                                 ))}
+                                                {loadingMore && (
+                                                    <div className="py-2 text-center text-sm text-muted-foreground">
+                                                        Loading more...
+                                                    </div>
+                                                )}
                                             </>
                                         )}
                                     </CommandList>

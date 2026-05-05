@@ -118,7 +118,8 @@ export const GitHubUserArraySchema = z.array(GitHubUserSchema);
 export type GitHubUserArray = z.infer<typeof GitHubUserArraySchema>;
 
 export const GitHubSearchResultSchema = z.object({
-    items: GitHubUserArraySchema,
+    total_count: z.number(),
+    items: z.array(GitHubUserSchema),
 });
 
 export type GitHubSearchResult = z.infer<typeof GitHubSearchResultSchema>;
